@@ -1,11 +1,14 @@
 @import url(vendor/normalize.css);
-/* @import url(../fonts/inter.css); */
+@import url(fonts/inter.css);
 
 @import url(blocks/page/page.css);
 
 /* header */
 @import url(blocks/header/header.css);
 @import url(blocks/header/__logo/header__logo.css);
+@import url(blocks/header/__menu/header__menu.css);
+@import url(blocks/header/__text/header__text.css);
+@import url(blocks/header/__user-name/header__user-name.css);
 
 /* profile */
 @import url(blocks/profile/profile.css);
@@ -64,3 +67,12 @@
 @import url(blocks/preview/preview.css);
 @import url(blocks/preview/__text/preview__text.css);
 @import url(blocks/preview/__image/preview__image.css);
+
+/* auth */
+@import url(blocks/auth/auth.css);
+@import url(blocks/auth/__title/auth__title.css);
+@import url(blocks/auth/__input/auth__input.css);
+@import url(blocks/auth/__form/auth__form.css);
+@import url(blocks/auth/__button/auth__button.css);
+@import url(blocks/auth/__sign-in/auth__sign-in.css);
+@import url(blocks/auth/__link/auth__link.css);

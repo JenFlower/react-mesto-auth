@@ -1,0 +1,10 @@
+.auth__sign-in {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 192px;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    color: #fff;
+}
