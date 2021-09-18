@@ -76,3 +76,6 @@
 @import url(blocks/auth/__button/auth__button.css);
 @import url(blocks/auth/__sign-in/auth__sign-in.css);
 @import url(blocks/auth/__link/auth__link.css);
+
+/* success-auth */
+@import url(blocks/success-auth/success-auth.css);

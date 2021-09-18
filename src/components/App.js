@@ -14,12 +14,16 @@ import AddPlacePopup from './AddPlacePopup';
 import Register from './Register';
 import Login from './Login';
 import ProtectedRoute from './ProtectedRoute' 
+import InfoTooltip from './InfoTooltip' 
 
 
 export default function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false)
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false)
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false)
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false)
+  const [isRegistrationSuccess, setIsRegistrationSuccess] = useState(false)
+
   const [selectedCard, setSelectedCard] = useState(null)
   const [currentUser, setCurrentUser] = useState({})
   const [cards, setCards] = useState([])
@@ -65,6 +69,10 @@ export default function App() {
     setIsAddPlacePopupOpen(true)
   }
 
+  const handleInfoTooltipClick = () => {
+    setIsInfoTooltipOpen(true)
+  }
+
   const handleCardClick = (data) => {
     setSelectedCard(data)
   }
@@ -73,6 +81,7 @@ export default function App() {
     setIsAddPlacePopupOpen(false)
     setIsEditProfilePopupOpen(false)
     setIsEditAvatarPopupOpen(false)
+    setIsInfoTooltipOpen(false)
     setSelectedCard(null)
   }
 
@@ -141,7 +150,7 @@ export default function App() {
 
         <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar}/>
         <ImagePopup name="preview" card={selectedCard} onClose={closeAllPopups}/>
-        
+        <InfoTooltip name="isSuccessAuth" isOpen={isInfoTooltipOpen} onClose={closeAllPopups} isSuccess={isRegistrationSuccess}/>
 
       </div>
 
