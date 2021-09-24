@@ -77,5 +77,7 @@
 @import url(blocks/auth/__sign-in/auth__sign-in.css);
 @import url(blocks/auth/__link/auth__link.css);
 
-/* success-auth */
-@import url(blocks/success-auth/success-auth.css);
+/* auth-popup */
+@import url(blocks/auth-popup/auth-popup.css);
+@import url(blocks/auth-popup/__text/auth-popup__text.css);
+@import url(blocks/auth-popup/__image/auth-popup__image.css);

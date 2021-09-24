@@ -1,8 +1,10 @@
 import '../index.css';
 import { useState, useEffect } from 'react'
 import { api } from '../utils/Api'
+import * as authApi from '../utils/Auth'
+
 import { CurrentUserContext } from '../contexts/CurrentUserContext'
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { useHistory, Route, Switch } from 'react-router-dom';
 
 import Header from './Header'
 import Main from './Main'
@@ -28,6 +30,7 @@ export default function App() {
   const [currentUser, setCurrentUser] = useState({})
   const [cards, setCards] = useState([])
   const [loggedIn, setLoggedIn] = useState(false)
+  const history = useHistory()
 
   useEffect(() => {
     Promise.all([api.getUserData(), api.getCards()])
@@ -112,20 +115,67 @@ export default function App() {
       .catch(error => console.log(error))
   }
 
+  const handleRegisterUser = (email, password) => {
+    authApi.register(email, password)
+      .then(res => {
+        history.push('/sign-in')
+        setIsRegistrationSuccess(true)
+      })
+      .catch(() => setIsRegistrationSuccess(false))
+      .then(() => setIsInfoTooltipOpen(true)) // открыть модалку
+  }
+
+  const [email, setEmail] = useState('')
+  
+  const tokenCheck = () => {
+    // если у пользователя есть токен в localStorage,
+  // эта функция проверит валидность токена
+    const jwt = localStorage.getItem('jwt');
+    if (jwt){
+      // проверим токен
+      authApi.getContent(jwt).then((res) => {
+        if(res) {
+          // авторизуем пользователя
+          // сохранение почты для вывода в хедер
+          console.log('tokenCheck', res)
+          setEmail(res.data.email)
+          setLoggedIn(res.data != null)
+          history.push('/')
+        }
+      }); 
+    }
+  } 
+  
+  useEffect(() => {
+    const jwt = localStorage.getItem('jwt')
+    if (jwt === null) { return }
+    tokenCheck()
+  }, []
+  );
+
+  const handleLogin = (email, password) => {
+
+    authApi.login(email, password)
+    .then((data) => {
+        setLoggedIn(true)
+        history.push('/')
+        tokenCheck()
+  })
+  .catch(e => console.log(e))
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        
-        
-        <Header />
+        <Header userName={email}/>
         <Switch>
 
           <Route path='/sign-up'> 
-            <Register />
+            <Register register={handleRegisterUser}/>
           </Route>
 
           <Route path='/sign-in'> 
-            <Login />
+            <Login onLogin={handleLogin} />
           </Route>
 
           <ProtectedRoute exact path='/'

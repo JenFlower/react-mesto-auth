@@ -1,0 +1,11 @@
+.auth-popup {
+    position: absolute;
+    max-width: 430px;
+    min-height: 330px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
