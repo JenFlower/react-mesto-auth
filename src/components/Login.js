@@ -24,8 +24,8 @@ function Login(props) {
         <div className="auth">
             <h2 className="auth__title">Вход</h2>
             <form className="auth__form" onSubmit={handleSubmit}>
-                <input type="email" className="auth__input auth__input_email" value={email} onChange={handleChangeEmail} placeholder="Email" name="email" type="email" required></input> 
-                <input type="password" className="auth__input auth__input_password" value={password} onChange={handleChangePassword} name="password" type="password" placeholder="Пароль"required></input>
+                <input type="email" className="auth__input auth__input_email" value={email} onChange={handleChangeEmail} placeholder="Email" name="email" required></input> 
+                <input type="password" className="auth__input auth__input_password" value={password} onChange={handleChangePassword} name="password" placeholder="Пароль"required></input>
                 <button type="submit" className="auth__button">Войти</button>
             </form>
         </div>
