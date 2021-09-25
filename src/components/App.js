@@ -72,9 +72,6 @@ export default function App() {
     setIsAddPlacePopupOpen(true)
   }
 
-  const handleInfoTooltipClick = () => {
-    setIsInfoTooltipOpen(true)
-  }
 
   const handleCardClick = (data) => {
     setSelectedCard(data)
@@ -122,7 +119,7 @@ export default function App() {
         setIsRegistrationSuccess(true)
       })
       .catch(() => setIsRegistrationSuccess(false))
-      .then(() => setIsInfoTooltipOpen(true)) // открыть модалку
+      .finally(() => setIsInfoTooltipOpen(true)) // открыть модалку
   }
 
   const [email, setEmail] = useState('')
@@ -133,25 +130,38 @@ export default function App() {
     const jwt = localStorage.getItem('jwt');
     if (jwt){
       // проверим токен
-      authApi.getContent(jwt).then((res) => {
-        if(res) {
-          // авторизуем пользователя
-          // сохранение почты для вывода в хедер
-          console.log('tokenCheck', res)
-          setEmail(res.data.email)
-          setLoggedIn(res.data != null)
-          history.push('/')
-        }
-      }); 
+      authApi.getContent(jwt)
+        .then((res) => {
+          if(res) {
+            // авторизуем пользователя
+            // сохранение почты для вывода в хедер
+            console.log('tokenCheck', res)
+            setEmail(res.data.email)
+            setLoggedIn(res.data != null)
+            history.push('/')
+          }
+        })
+        .catch(e => console.log(e)) 
     }
   } 
   
   useEffect(() => {
+    const closeByEscape = (e) => {
+      if (e.key === 'Escape') {
+        closeAllPopups();
+      }
+    }
+
+    document.addEventListener('keydown', closeByEscape)
+    
+    return () => document.removeEventListener('keydown', closeByEscape)
+  }, [])
+
+  useEffect(() => {
     const jwt = localStorage.getItem('jwt')
     if (jwt === null) { return }
-    tokenCheck()
-  }, []
-  );
+    tokenCheck();
+  }, []);
 
   const handleLogin = (email, password) => {
 
@@ -160,16 +170,20 @@ export default function App() {
         setLoggedIn(true)
         history.push('/')
         tokenCheck()
-  })
-  .catch(e => console.log(e))
+    })
+    .catch(e => console.log(e))
+  }
+
+  const onExit = () => {
+    localStorage.removeItem('jwt')
+    setLoggedIn(false)
   }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        <Header userName={email}/>
+        <Header userName={email} clickExit={onExit}/>
         <Switch>
-
           <Route path='/sign-up'> 
             <Register register={handleRegisterUser}/>
           </Route>

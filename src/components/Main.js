@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { CurrentUserContext } from '../contexts/CurrentUserContext'
-import {api} from '../utils/Api'
 import Card from './Card'
 
 export default function Main(props) {
@@ -8,7 +7,7 @@ export default function Main(props) {
   const currentUser = React.useContext(CurrentUserContext)
 
   return (
-    <main cards={props.cards}>
+    <main>
       <section className="profile">
         <div className="profile__content">
           <div className="profile__cover-logo">

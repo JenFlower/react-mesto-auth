@@ -37,7 +37,7 @@ function Register(props) {
                     onChange={handleChangePassword}
                     value={password}
                     required />
-                <button className="auth__button" onSubmit={handleSubmit}>Зарегистрироваться</button>
+                <button className="auth__button">Зарегистрироваться</button>
             </form>
             <div className="auth__sign-in">
                 <p>Уже зарегистрированы? 

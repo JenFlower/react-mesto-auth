@@ -1,7 +1,7 @@
 export const BASE_URL = 'https://auth.nomoreparties.co';
 
 const checkResponse = (res) => {
-  return res.status === 200 ? res.json() : Promise.reject(`Error: ${res.status}`)
+  return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`)
 }
 
 export const register = (email, password) => {
@@ -33,7 +33,6 @@ export const login = (email, password) => {
     })
     .then(checkResponse)
     .then((data) => {
-      // console.log('data', data.token)
       if (data.token) {
         console.log('data', data.token)
         localStorage.setItem('jwt', data.token);
