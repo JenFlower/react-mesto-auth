@@ -18,7 +18,6 @@ export const register = (email, password) => {
   .then((res) => {
     return res;
   })
-  .catch((err) => console.log(err));
 };
 
 export const login = (email, password) => {
